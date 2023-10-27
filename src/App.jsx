@@ -1,5 +1,11 @@
+import Grid from "./components/Grid";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <Grid width={10} height={10} />
+    </>
+  );
 }
 
 export default App;
