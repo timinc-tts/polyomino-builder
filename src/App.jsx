@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import Grid from "./components/Grid";
 import Preview from "./components/Preview";
 import useBooleanGrid from "./hooks/useBooleanGrid";
@@ -6,10 +6,11 @@ import { getTrueSubBoard } from "./util/board";
 
 import appStyle from "./App.module.css";
 import "./style.css";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const { cells, toggleCell, clearGrid } = useBooleanGrid(10, 10);
-  const [polyominos, setPolyominos] = useState([]);
+  const [polyominos, setPolyominos] = useLocalStorage([], "polyominos");
 
   const handleAdd = useCallback(() => {
     const trueBoard = getTrueSubBoard(cells);
