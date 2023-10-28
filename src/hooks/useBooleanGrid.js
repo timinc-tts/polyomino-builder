@@ -11,8 +11,13 @@ export default function useBooleanGrid(width, height) {
     setCells((p) => setBoardCell(p, x, y, !getBoardCell(p, x, y)))
   }, [])
 
+  const clearGrid = useCallback(() => {
+    setCells(generateBoard(width, height, { emptyValue: false }))
+  }, [height, width])
+
   return {
     cells,
-    toggleCell
+    toggleCell,
+    clearGrid
   }
 }

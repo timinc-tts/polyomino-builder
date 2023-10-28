@@ -1,19 +1,11 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
-import useBooleanGrid from "../hooks/useBooleanGrid";
 import gridStyle from "./Grid.module.css";
 import { csx } from "../util/cssClasses";
 
 /**
  * Allows the user to turn cells on/off on a 2D grid of a given width and height.
  */
-export default function Grid({ height, width, onChange = () => {} }) {
-  const { cells, toggleCell } = useBooleanGrid(width, height);
-
-  useEffect(() => {
-    onChange(cells);
-  }, [cells, onChange]);
-
+export default function Grid({ cells, toggleCell }) {
   return (
     <div className={gridStyle.board}>
       {cells.map((row, y) => (
@@ -35,7 +27,6 @@ export default function Grid({ height, width, onChange = () => {} }) {
 }
 
 Grid.propTypes = {
-  height: PropTypes.number,
-  width: PropTypes.number,
-  onChange: PropTypes.func,
+  cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  toggleCell: PropTypes.func,
 };

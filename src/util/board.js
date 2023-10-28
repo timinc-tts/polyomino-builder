@@ -35,3 +35,67 @@ export function setBoardCell(board, x, y, newValue) {
   iBoard[y][x] = newValue;
   return iBoard;
 }
+
+export function getFirstColumnWhereAny(board, cellPredicate) {
+  const width = getBoardWidth(board);
+  const height = getBoardHeight(board);
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      if (cellPredicate(getBoardCell(board, x, y))) {
+        return x;
+      }
+    }
+  }
+}
+
+export function getFirstRowWhereAny(board, cellPredicate) {
+  const width = getBoardWidth(board);
+  const height = getBoardHeight(board);
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (cellPredicate(getBoardCell(board, x, y))) {
+        return y;
+      }
+    }
+  }
+}
+
+export function getLastColumnWhereAny(board, cellPredicate) {
+  const width = getBoardWidth(board);
+  const height = getBoardHeight(board);
+
+  for (let x = width - 1; x >= 0; x--) {
+    for (let y = 0; y < height; y++) {
+      if (cellPredicate(getBoardCell(board, x, y))) {
+        return x;
+      }
+    }
+  }
+}
+
+export function getLastRowWhereAny(board, cellPredicate) {
+  const width = getBoardWidth(board);
+  const height = getBoardHeight(board);
+
+  for (let y = height - 1; y >= 0; y--) {
+    for (let x = 0; x < width; x++) {
+      if (cellPredicate(getBoardCell(board, x, y))) {
+        return y;
+      }
+    }
+  }
+}
+
+export function getSubBoard(board, minX, minY, maxX, maxY) {
+  return generateBoard(maxX - minX + 1, maxY - minY + 1, { cellValue: (x, y) => getBoardCell(board, x + minX, y + minY) })
+}
+
+export function getTrueSubBoard(board) {
+  const minX = (getFirstColumnWhereAny(board, (v) => v));
+  const minY = (getFirstRowWhereAny(board, (v) => v));
+  const maxX = (getLastColumnWhereAny(board, (v) => v));
+  const maxY = (getLastRowWhereAny(board, (v) => v));
+  return getSubBoard(board, minX, minY, maxX, maxY)
+}
