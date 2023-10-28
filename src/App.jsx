@@ -16,9 +16,13 @@ function App() {
     if (trueBoard.length === 0) {
       return;
     }
+    const stringifiedBoard = JSON.stringify(trueBoard);
+    if (polyominos.some((p) => JSON.stringify(p) === stringifiedBoard)) {
+      return;
+    }
     setPolyominos((p) => [...p, trueBoard]);
     clearGrid();
-  }, [cells, clearGrid]);
+  }, [cells, clearGrid, polyominos]);
 
   return (
     <>
