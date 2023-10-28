@@ -12,7 +12,7 @@ export default function Grid({ cells, toggleCell, onSetCenter, center }) {
   const handleToggle = useCallback(
     (x, y, e) => {
       if (e.shiftKey) {
-        if (center === `${x},${y}`) {
+        if (JSON.stringify(center) === JSON.stringify({ x, y })) {
           onSetCenter(null);
         } else {
           onSetCenter(x, y);

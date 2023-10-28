@@ -4,6 +4,8 @@ import Preview from "./components/Preview";
 import useBooleanGrid from "./hooks/useBooleanGrid";
 import { getTrueSubBoard } from "./util/board";
 import useLocalStorage from "./hooks/useLocalStorage";
+import { generatePolyominos } from "./util/polyomino";
+import downloadFile from "downloadfile-js";
 
 import appStyle from "./App.module.css";
 import "./style.css";
@@ -52,6 +54,10 @@ function App() {
     setCenter({ x, y });
   }, []);
 
+  const handleDownload = useCallback(() => {
+    downloadFile(JSON.stringify(generatePolyominos(polyominos)), "save.json");
+  }, [polyominos]);
+
   return (
     <>
       <h1>Tabletop Simulator Polyomino Builder</h1>
@@ -66,7 +72,9 @@ function App() {
       </button>
       <Preview list={polyominos} onRemove={handleRemove} />
       {!!polyominos.length && (
-        <button className={appStyle.button}>Download</button>
+        <button className={appStyle.button} onClick={handleDownload}>
+          Download
+        </button>
       )}
     </>
   );
