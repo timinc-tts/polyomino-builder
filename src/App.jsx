@@ -23,7 +23,7 @@ function App() {
     }
     setPolyominos((p) => [...p, trueBoard]);
     clearGrid();
-  }, [cells, clearGrid, polyominos]);
+  }, [cells, clearGrid, polyominos, setPolyominos]);
 
   return (
     <>
