@@ -11,7 +11,7 @@ export default function Grid({ cells, toggleCell }) {
       {cells.map((row, y) => (
         <div key={`row-${y}`} className={gridStyle.row}>
           {row.map((cell, x) => (
-            <div
+            <button
               key={`cell-${x}-${y}`}
               onClick={() => toggleCell(x, y)}
               className={csx(

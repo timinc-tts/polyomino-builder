@@ -1,8 +1,10 @@
 import { useCallback, useState } from "react";
 import Grid from "./components/Grid";
 import useBooleanGrid from "./hooks/useBooleanGrid";
-import "./style.css";
 import { getTrueSubBoard } from "./util/board";
+
+import appStyle from "./App.module.css";
+import "./style.css";
 
 function App() {
   const { cells, toggleCell, clearGrid } = useBooleanGrid(10, 10);
@@ -17,7 +19,9 @@ function App() {
     <>
       <h1>Tabletop Simulator Polyomino Builder</h1>
       <Grid cells={cells} toggleCell={toggleCell} />
-      <button onClick={handleAdd}>Add</button>
+      <button onClick={handleAdd} className={appStyle.button}>
+        Add
+      </button>
       {JSON.stringify(polyominos)}
     </>
   );
