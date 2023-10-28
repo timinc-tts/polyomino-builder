@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
 import Polyomino from "./Polyomino";
 
+import previewStyles from "./Preview.module.css";
+
 export default function Preview({ list }) {
   return (
-    <div style={{ display: "flex", gap: 5 }}>
+    <div className={previewStyles.container}>
       {list.map((polyomino, i) => (
         <Polyomino cells={polyomino} key={i} />
       ))}
