@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import Grid from "./components/Grid";
+import Preview from "./components/Preview";
 import useBooleanGrid from "./hooks/useBooleanGrid";
 import { getTrueSubBoard } from "./util/board";
 
@@ -11,7 +12,11 @@ function App() {
   const [polyominos, setPolyominos] = useState([]);
 
   const handleAdd = useCallback(() => {
-    setPolyominos((p) => [...p, getTrueSubBoard(cells)]);
+    const trueBoard = getTrueSubBoard(cells);
+    if (trueBoard.length === 0) {
+      return;
+    }
+    setPolyominos((p) => [...p, trueBoard]);
     clearGrid();
   }, [cells, clearGrid]);
 
@@ -22,7 +27,8 @@ function App() {
       <button onClick={handleAdd} className={appStyle.button}>
         Add
       </button>
-      {JSON.stringify(polyominos)}
+      <Preview list={polyominos} />
+      <button className={appStyle.button}>Download</button>
     </>
   );
 }

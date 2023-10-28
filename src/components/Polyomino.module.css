@@ -1,0 +1,32 @@
+.board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: slategray;
+}
+
+.innerBoard {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.cell {
+  cursor: initial;
+}
+
+.cell.enabled {
+  background-color: darkslategrey;
+}
+
+.cell.disabled {
+  background-color: slategray;
+}

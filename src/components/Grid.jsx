@@ -27,6 +27,6 @@ export default function Grid({ cells, toggleCell }) {
 }
 
 Grid.propTypes = {
-  cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
   toggleCell: PropTypes.func,
 };
