@@ -12,7 +12,8 @@
   "dependencies": {
     "downloadfile-js": "github:tmetcalfe89/downloadfile-js",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.17.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
