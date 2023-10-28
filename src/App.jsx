@@ -40,7 +40,9 @@ function App() {
         Add
       </button>
       <Preview list={polyominos} onRemove={handleRemove} />
-      <button className={appStyle.button}>Download</button>
+      {!!polyominos.length && (
+        <button className={appStyle.button}>Download</button>
+      )}
     </>
   );
 }
