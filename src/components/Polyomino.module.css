@@ -21,9 +21,11 @@
 
 .cell {
   cursor: initial;
+  box-sizing: border-box;
 }
 
 .cell.enabled {
+  border: 1px solid slategray;
   background-color: darkslategrey;
 }
 
