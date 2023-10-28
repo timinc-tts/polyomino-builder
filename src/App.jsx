@@ -3,10 +3,10 @@ import Grid from "./components/Grid";
 import Preview from "./components/Preview";
 import useBooleanGrid from "./hooks/useBooleanGrid";
 import { getTrueSubBoard } from "./util/board";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 import appStyle from "./App.module.css";
 import "./style.css";
-import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const { cells, toggleCell, clearGrid } = useBooleanGrid(5, 5);
@@ -25,6 +25,13 @@ function App() {
     clearGrid();
   }, [cells, clearGrid, polyominos, setPolyominos]);
 
+  const handleRemove = useCallback(
+    (removeI) => {
+      setPolyominos((p) => p.filter((e, i) => i !== removeI));
+    },
+    [setPolyominos]
+  );
+
   return (
     <>
       <h1>Tabletop Simulator Polyomino Builder</h1>
@@ -32,7 +39,7 @@ function App() {
       <button onClick={handleAdd} className={appStyle.button}>
         Add
       </button>
-      <Preview list={polyominos} />
+      <Preview list={polyominos} onRemove={handleRemove} />
       <button className={appStyle.button}>Download</button>
     </>
   );

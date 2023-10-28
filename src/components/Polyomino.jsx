@@ -4,13 +4,13 @@ import { getBoardHeight, getBoardWidth } from "../util/board";
 import polyStyle from "./Polyomino.module.css";
 import { csx } from "../util/cssClasses";
 
-export default function Polyomino({ cells }) {
+export default function Polyomino({ cells, onClick = () => {} }) {
   const width = useMemo(() => getBoardWidth(cells), [cells]);
   const height = useMemo(() => getBoardHeight(cells), [cells]);
   const maxDim = useMemo(() => Math.max(width, height), [height, width]);
 
   return (
-    <div className={polyStyle.board}>
+    <div className={polyStyle.board} onClick={onClick}>
       <div
         className={polyStyle.innerBoard}
         style={{
@@ -42,4 +42,5 @@ export default function Polyomino({ cells }) {
 
 Polyomino.propTypes = {
   cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
+  onClick: PropTypes.func,
 };
