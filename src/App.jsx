@@ -55,12 +55,52 @@ function App() {
   }, []);
 
   const handleDownload = useCallback(() => {
-    downloadFile(JSON.stringify(generatePolyominos(polyominos)), "save.json");
+    downloadFile(
+      JSON.stringify(generatePolyominos(polyominos)),
+      "polyominos.json"
+    );
   }, [polyominos]);
 
   return (
     <>
-      <h1>Tabletop Simulator Polyomino Builder</h1>
+      <h1>Tim&apos;s TTS Polyomino Builder</h1>
+      <div>
+        <h2>INSTRUCTIONS</h2>
+        <ul>
+          <li>
+            Click on the cells on the board below to turn on cells for your
+            polyomino.
+          </li>
+          <li>
+            Shift+Click on a cell to mark it as the center cell for your
+            polyomino.
+          </li>
+          <li>
+            Click the <code>Add</code> button to lock in your polyomino design
+            and add it to the list.
+          </li>
+          <li>Click on a polyomino in the list to delete it.</li>
+          <li>
+            Click the download button to download a TTS save file with your
+            polyominos in it!
+          </li>
+          <li>
+            Click the <code>Clear</code> button if you&apos;d like to start
+            fresh!
+          </li>
+          <li>
+            If this tool helped you, please consider{" "}
+            <a
+              href="https://ko-fi.com/programmingwithtim"
+              target="_blank"
+              rel="noreferrer"
+            >
+              helping me with a tip over on Ko-Fi
+            </a>
+            !
+          </li>
+        </ul>
+      </div>
       <Grid
         cells={cells}
         toggleCell={toggleCell}
@@ -72,9 +112,14 @@ function App() {
       </button>
       <Preview list={polyominos} onRemove={handleRemove} />
       {!!polyominos.length && (
-        <button className={appStyle.button} onClick={handleDownload}>
-          Download
-        </button>
+        <div style={{ display: "flex", gap: 5 }}>
+          <button className={appStyle.button} onClick={handleDownload}>
+            Download
+          </button>
+          <button className={appStyle.button} onClick={() => setPolyominos([])}>
+            Clear
+          </button>
+        </div>
       )}
     </>
   );

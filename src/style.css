@@ -43,3 +43,16 @@ button {
 button:hover {
   background-color: darkslategray;
 }
+
+ul li {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
+code {
+  font-family: "Inconsolata", monospace;
+  padding: 0 5px;
+  background-color: slategray;
+  color: white;
+  border-radius: 3px;
+}
