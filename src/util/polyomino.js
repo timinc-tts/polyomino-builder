@@ -1,13 +1,8 @@
 import { getBoardCell, getBoardHeight, getBoardWidth } from "./board";
 
 export function generatePolyominos(polyominos) {
-  return polyominos.reduce((acc, { cells, center }) => ({
-    ...acc,
-    ObjectStates: [
-      ...acc.ObjectStates,
-      generatePolyomino(cells, center)
-    ]
-  }), {
+  const bag = generateBag();
+  const save = {
     "SaveName": "",
     "Date": "",
     "VersionNumber": "",
@@ -25,7 +20,66 @@ export function generatePolyominos(polyominos) {
     "LuaScriptState": "",
     "XmlUI": "",
     "ObjectStates": []
-  })
+  };
+  const polyominoObjects = polyominos.map(({ cells, center }) => generatePolyomino(cells, center))
+  bag.ContainedObjects = polyominoObjects;
+  save.ObjectStates.push(bag);
+  return save;
+}
+
+function generateBag() {
+  return {
+    "GUID": "c6dda4",
+    "Name": "Bag",
+    "Transform": {
+      "posX": 2.715774,
+      "posY": 0.774967551,
+      "posZ": -6.26143026,
+      "rotX": 7.895238E-05,
+      "rotY": -1.04587325E-05,
+      "rotZ": -9.846752E-06,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "scaleZ": 1.0
+    },
+    "Nickname": "",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "ColorDiffuse": {
+      "r": 0.7058823,
+      "g": 0.366520882,
+      "b": 0.0
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": false,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "Number": 0,
+    "Bag": {
+      "Order": 0
+    },
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  }
 }
 
 function generatePolyomino(cells, center) {
