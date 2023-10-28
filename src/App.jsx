@@ -9,7 +9,7 @@ import "./style.css";
 import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
-  const { cells, toggleCell, clearGrid } = useBooleanGrid(10, 10);
+  const { cells, toggleCell, clearGrid } = useBooleanGrid(5, 5);
   const [polyominos, setPolyominos] = useLocalStorage([], "polyominos");
 
   const handleAdd = useCallback(() => {
