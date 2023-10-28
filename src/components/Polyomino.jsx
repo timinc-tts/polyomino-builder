@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { getBoardHeight, getBoardWidth } from "../util/board";
 import polyStyle from "./Polyomino.module.css";
 import { csx } from "../util/cssClasses";
 
-export default function Polyomino({ cells, onClick = () => {} }) {
+export default function Polyomino({ cells, center, onClick = () => {} }) {
   const width = useMemo(() => getBoardWidth(cells), [cells]);
   const height = useMemo(() => getBoardHeight(cells), [cells]);
   const maxDim = useMemo(() => Math.max(width, height), [height, width]);
@@ -19,13 +19,15 @@ export default function Polyomino({ cells, onClick = () => {} }) {
         }}
       >
         {cells.map((row, y) => (
-          <>
+          <Fragment key={`row-${y}`}>
             {row.map((cell, x) => (
               <button
                 key={`cell-${x}-${y}`}
                 className={csx(
                   polyStyle.cell,
-                  cell ? polyStyle.enabled : polyStyle.disabled
+                  cell ? polyStyle.enabled : polyStyle.disabled,
+                  JSON.stringify(center) === JSON.stringify({ x, y }) &&
+                    polyStyle.center
                 )}
                 style={{
                   width: `${(1 / maxDim / ((1 / maxDim) * width)) * 100}%`,
@@ -33,7 +35,7 @@ export default function Polyomino({ cells, onClick = () => {} }) {
                 }}
               />
             ))}
-          </>
+          </Fragment>
         ))}
       </div>
     </div>
@@ -42,5 +44,9 @@ export default function Polyomino({ cells, onClick = () => {} }) {
 
 Polyomino.propTypes = {
   cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
+  center: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
   onClick: PropTypes.func,
 };

@@ -28,3 +28,7 @@
 .cell.disabled {
   background-color: slategray;
 }
+
+.cell.center {
+  background-color: darkslateblue;
+}

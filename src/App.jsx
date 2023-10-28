@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import Grid from "./components/Grid";
 import Preview from "./components/Preview";
 import useBooleanGrid from "./hooks/useBooleanGrid";
@@ -10,20 +10,36 @@ import "./style.css";
 
 function App() {
   const { cells, toggleCell, clearGrid } = useBooleanGrid(5, 5);
+  const [center, setCenter] = useState(null);
   const [polyominos, setPolyominos] = useLocalStorage([], "polyominos");
 
   const handleAdd = useCallback(() => {
-    const trueBoard = getTrueSubBoard(cells);
+    if (!center) {
+      return;
+    }
+    const { cells: trueBoard, center: trueCenter } = getTrueSubBoard(
+      cells,
+      center
+    );
     if (trueBoard.length === 0) {
       return;
     }
     const stringifiedBoard = JSON.stringify(trueBoard);
-    if (polyominos.some((p) => JSON.stringify(p) === stringifiedBoard)) {
+    if (
+      polyominos.some(({ cells }) => JSON.stringify(cells) === stringifiedBoard)
+    ) {
       return;
     }
-    setPolyominos((p) => [...p, trueBoard]);
+    setPolyominos((p) => [
+      ...p,
+      {
+        cells: trueBoard,
+        center: trueCenter,
+      },
+    ]);
     clearGrid();
-  }, [cells, clearGrid, polyominos, setPolyominos]);
+    setCenter(null);
+  }, [cells, center, clearGrid, polyominos, setPolyominos]);
 
   const handleRemove = useCallback(
     (removeI) => {
@@ -32,10 +48,19 @@ function App() {
     [setPolyominos]
   );
 
+  const handleSetCenter = useCallback((x, y) => {
+    setCenter({ x, y });
+  }, []);
+
   return (
     <>
       <h1>Tabletop Simulator Polyomino Builder</h1>
-      <Grid cells={cells} toggleCell={toggleCell} />
+      <Grid
+        cells={cells}
+        toggleCell={toggleCell}
+        onSetCenter={handleSetCenter}
+        center={center}
+      />
       <button onClick={handleAdd} className={appStyle.button}>
         Add
       </button>

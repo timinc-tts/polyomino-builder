@@ -92,10 +92,16 @@ export function getSubBoard(board, minX, minY, maxX, maxY) {
   return generateBoard(maxX - minX + 1, maxY - minY + 1, { cellValue: (x, y) => getBoardCell(board, x + minX, y + minY) })
 }
 
-export function getTrueSubBoard(board) {
+export function getTrueSubBoard(board, center) {
   const minX = (getFirstColumnWhereAny(board, (v) => v));
   const minY = (getFirstRowWhereAny(board, (v) => v));
   const maxX = (getLastColumnWhereAny(board, (v) => v));
   const maxY = (getLastRowWhereAny(board, (v) => v));
-  return getSubBoard(board, minX, minY, maxX, maxY)
+  return {
+    cells: getSubBoard(board, minX, minY, maxX, maxY),
+    center: {
+      x: center.x - minX,
+      y: center.y - minY
+    }
+  }
 }

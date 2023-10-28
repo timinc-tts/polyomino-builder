@@ -6,14 +6,27 @@ import previewStyles from "./Preview.module.css";
 export default function Preview({ list, onRemove }) {
   return (
     <div className={previewStyles.container}>
-      {list.map((polyomino, i) => (
-        <Polyomino cells={polyomino} key={i} onClick={() => onRemove(i)} />
+      {list.map(({ cells, center }, i) => (
+        <Polyomino
+          cells={cells}
+          center={center}
+          key={i}
+          onClick={() => onRemove(i)}
+        />
       ))}
     </div>
   );
 }
 
 Preview.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool))),
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
+      center: PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number,
+      }),
+    })
+  ),
   onRemove: PropTypes.func,
 };
